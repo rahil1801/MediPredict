@@ -1,70 +1,68 @@
-# Getting Started with Create React App
+# Welcome to MediPredict
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Project info
 
-## Available Scripts
+**URL**: 
 
-In the project directory, you can run:
+## How can I edit this code?
 
-### `npm start`
+There are several ways of editing your application.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**Use your preferred IDE**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
 
-### `npm test`
+The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Follow these steps:
 
-### `npm run build`
+```sh
+# Step 1: Clone the repository using the project's Git URL.
+git clone https://github.com/rahil1801/MediPredict.git
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Step 2: Navigate to the project directory.
+cd MediPredict
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Step 3: Install the necessary dependencies.
+npm i
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Step 4: Install the necessary dependencies for backend (Node.js)
+cd backend && npm i
 
-### `npm run eject`
+# Step 5: Install the necessary dependencies for python Backend (Flask)
+cd backend && pip install -r requirements.txt
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# Step 4: Start the development server with auto-reloading and an instant preview. Note: Make sure to be in main directory
+npm run dev
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Edit a file directly in GitHub**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Navigate to the desired file(s).
+- Click the "Edit" button (pencil icon) at the top right of the file view.
+- Make your changes and commit the changes.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+**Use GitHub Codespaces**
 
-## Learn More
+- Navigate to the main page of your repository.
+- Click on the "Code" button (green button) near the top right.
+- Select the "Codespaces" tab.
+- Click on "New codespace" to launch a new Codespace environment.
+- Edit files directly within the Codespace and commit and push your changes once you're done.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## What technologies are used for this project?
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This project is built with:
 
-### Code Splitting
+- React
+- Javascript
+- Express (Nodejs)
+- Python (Flask)
+- Python (For Machine Learning)
+- Tailwind CSS
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## About this project
 
-### Analyzing the Bundle Size
+This project is a machine learning-based application that estimates healthcare expenses for individuals based on various factors. This type of project is valuable for insurance companies, healthcare providers, and individuals planning their medical expenses. It uses machine learning algorithms to predict the specific cost of insurance for the individual
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Note: This project is just for learning purpose. Don't take insights of the prediction in real life.
