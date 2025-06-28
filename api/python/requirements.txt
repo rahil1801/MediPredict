@@ -5,4 +5,3 @@ joblib
 flask
 flask_cors
 seaborn
-pickle
