@@ -35,9 +35,30 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Support</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-300 hover:text-blue-400 transition-colors duration-300">Help Center</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-blue-400 transition-colors duration-300">Privacy Policy</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-blue-400 transition-colors duration-300">Terms of Service</a></li>
+              <li>
+                  <a href="#" role="button" onClick={(e) => {
+                    e.preventDefault();
+                    handleClick();
+                  }}>
+                    Help Center
+                  </a>
+              </li>
+              <li>
+                  <a href="#" role="button" onClick={(e) => {
+                    e.preventDefault();
+                    handleClick();
+                  }}>
+                    Privacy Policy
+                  </a>
+              </li>
+              <li>
+                  <a href="#" role="button" onClick={(e) => {
+                    e.preventDefault();
+                    handleClick();
+                  }}>
+                    Terms of Service
+                  </a>
+              </li>
             </ul>
           </div>
         </div>
