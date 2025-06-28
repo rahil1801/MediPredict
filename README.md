@@ -24,17 +24,13 @@ git clone https://github.com/rahil1801/MediPredict.git
 cd MediPredict
 
 # Step 3: Install the necessary dependencies.
-npm i
+cd frontend && npm i && npm run start
 
 # Step 4: Install the necessary dependencies for backend (Node.js)
-cd backend && npm i
+cd api/backend && npm i && node index.js 
 
 # Step 5: Install the necessary dependencies for python Backend (Flask)
-cd backend && pip install -r requirements.txt
-
-# Step 4: Start the development server with auto-reloading and an instant preview. Note: Make sure to be in main directory
-npm run dev
-```
+cd /api/python && pip install -r requirements.txt && python app.py 
 
 **Edit a file directly in GitHub**
 
