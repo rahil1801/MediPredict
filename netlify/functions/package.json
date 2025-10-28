@@ -1,0 +1,12 @@
+{
+  "name": "netlify-functions",
+  "version": "1.0.0",
+  "description": "Serverless functions for medical insurance prediction",
+  "scripts": {
+    "dev": "netlify-cli@latest dev"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "node-fetch": "^2.6.0"
+  }
+}
