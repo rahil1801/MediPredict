@@ -1,0 +1,38 @@
+name: Deploy to HuggingFace Space
+
+on:
+  push:
+    paths:
+      - 'api/python/**'
+      - '.github/workflows/deploy-hf-space.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Prepare HF repo
+        run: |
+          mkdir hfspace
+          cd hfspace
+          git init
+          git remote add origin https://huggingface.co/spaces/${{ secrets.HF_USERNAME }}/${{ secrets.HF_SPACE_NAME }}
+          # copying files required by HF from repo
+          cp -r ../api/python/* .
+          git add -A
+          git commit -m "Deploy from GitHub Actions - $GITHUB_SHA" || true
+          # pushing using HF token
+          git push https://huggingface.co/${{ secrets.HF_USERNAME }}/${{ secrets.HF_SPACE_NAME }} HEAD:main --force
+        env:
+          GIT_AUTHOR_NAME: github-actions
+          GIT_AUTHOR_EMAIL: actions@github.com
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}

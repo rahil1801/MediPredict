@@ -1,0 +1,18 @@
+{
+  "name": "medical-insurance-predictor",
+  "version": "1.0.0",
+  "description": "Medical Insurance Cost Prediction with CI/CD",
+  "private": true,
+  "scripts": {
+    "build:frontend": "cd frontend && npm install && npm run build",
+    "build:functions": "cd netlify/functions && npm install",
+    "build:all": "npm run build:frontend && npm run build:functions",
+    "train-model": "cd api/python && python training.py",
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:functions\"",
+    "dev:frontend": "cd frontend && npm start",
+    "dev:functions": "cd netlify/functions && npm install && npm run dev"
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  }
+}

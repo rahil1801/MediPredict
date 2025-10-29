@@ -1,59 +1,42 @@
-from flask import Flask, request, jsonify
+from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
+import joblib
 import numpy as np
-import joblib  # Changed from pickle to joblib
 import os
 
-app = Flask(__name__)
+app = FastAPI()
 
-# Allow Cross-Origin Resource Sharing (CORS)
-from flask_cors import CORS
-CORS(app)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # tighten in prod
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-# Load your trained model from the 'models' directory
-model_path = os.path.join('trained_model.pkl')
-model = joblib.load(model_path)  # Using joblib instead of pickle
+MODEL_PATH = os.path.join(os.path.dirname(__file__), "trained_model.pkl")
+model = joblib.load(MODEL_PATH)
 
-# Function to convert input to numeric values
-def preprocess_input(data):
+def preprocess(data):
+    # similar to your previous logic, raise ValueError on invalid data
+    d = {}
+    d['age'] = int(data['age'])
+    d['bmi'] = float(data['bmi'])
+    d['children'] = int(data['children'])
+    d['smoker'] = 0 if str(data['smoker']).lower() == 'yes' else 1
+    region_mapping = {'southeast': 0, 'southwest': 1, 'northeast': 2, 'northwest': 3}
+    d['region'] = region_mapping[str(data['region']).lower()]
+    d['sex'] = 0 if str(data['sex']).lower() == 'male' else 1
+    return d
+
+@app.post("/predict")
+async def predict(request: Request):
+    payload = await request.json()
     try:
-        # Convert each input to appropriate numeric type
-        data['age'] = int(data['age'])
-        data['bmi'] = float(data['bmi'])
-        data['children'] = int(data['children'])
-        data['smoker'] = 0 if data['smoker'].lower() == 'yes' else 1  # Fixed: 0=yes, 1=no to match training
-        region_mapping = {
-            'southeast': 0,
-            'southwest': 1,
-            'northeast': 2,
-            'northwest': 3
-        }
-        data['region'] = region_mapping[data['region'].lower()]
-        data['sex'] = 0 if data['sex'].lower() == 'male' else 1  # 0=male, 1=female to match training
-    except Exception as e:
-        raise ValueError(f"Invalid input data: {str(e)}") from e
-    return data
-
-@app.route('/predict', methods=['POST'])
-def predict():
-    data = request.json
-    try:
-        processed_data = preprocess_input(data)
-        # Ensure consistent feature order - use the same order as during training
-        features = [
-            processed_data['age'],
-            processed_data['sex'],
-            processed_data['bmi'],
-            processed_data['children'],
-            processed_data['smoker'],
-            processed_data['region']
-        ]
-        features = np.array(features).reshape(1, -1)
-        prediction = model.predict(features)[0]
-        return jsonify({'prediction': float(prediction)})  # Convert numpy float to native Python float
+        p = preprocess(payload)
+        features = np.array([[p['age'], p['sex'], p['bmi'], p['children'], p['smoker'], p['region']]])
+        pred = float(model.predict(features)[0])
+        return {"prediction": pred}
     except ValueError as ve:
-        return jsonify({'error': str(ve)}), 400
+        return {"error": str(ve)}, 400
     except Exception as e:
-        return jsonify({'error': f'Internal Server Error: {str(e)}'}), 500
-
-if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+        return {"error": f"Internal error: {str(e)}"}, 500

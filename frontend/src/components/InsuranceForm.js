@@ -24,14 +24,18 @@ const PredictForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://127.0.0.1:5000/predict', formData);
+            // Sending the request to Netlify serverless function
+            const response = await axios.post('/.netlify/functions/predict', formData);
+
             setPrediction(response.data.prediction);
             setError(null);
         } catch (error) {
+            console.error("Prediction request failed:", error);
             setError('Error in prediction');
             setPrediction(null);
         }
     };
+
 
     return ( 
         <div className="py-20 px-4 bg-white/50" id='predict'>
